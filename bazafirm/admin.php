@@ -1,0 +1,46 @@
+<?php
+session_start();
+
+if (isset($_SESSION['logged_id'])) {
+	header('Location: panel.php');
+	exit();
+}
+?>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+        <link rel="icon" href="002-settings.ico">
+    <meta charset="utf-8">
+    <title>Panel administracyjny</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://fonts.googleapis.com/css?family=Lobster|Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+
+        <header>
+            <h1>Admin</h1>
+        </header>
+
+        <main>
+            <article>
+                <form method="post" action="panel.php">
+                    <label>Login <input type="text" name="login"></label>
+                    <label>Hasło <input type="password" name="pass"></label>
+                    <input type="submit" value="Zaloguj się!">
+					
+					<?php
+					if (isset($_SESSION['bad_attempt'])) {
+						echo '<p>Niepoprawny login lub hasło!</p>';
+						unset($_SESSION['bad_attempt']);
+					}
+					?>
+					
+                </form>
+            </article>
+        </main>
+
+    </div>
+</body>
+</html>
